@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Spotify\SpotifyPublicController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,13 +18,27 @@ use App\Http\Controllers\AuthController;
 */
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
+    
+    /* Private Auth Routes */
     Route::get('/me', function(Request $request) {
         return auth()->user();
     });
+    Route::post('/auth/logout', [ AuthController::class, 'logout']);
 
-    Route::post('/logout', [ AuthController::class, 'logout']);
+    /* Private Spotify Routes */
+    Route::prefix('/spotify/private')->group(function () {
+
+    });
+
 });
 
+/* Public Auth Routes */
 Route::post('/auth/login', [AuthController::class, 'login']);
-
 Route::post('/auth/callback', [AuthController::class, 'callback']);
+
+/* Public Spotify Routes */
+Route::prefix('/spotify/public')->group(function () {
+    Route::post('/search', [SpotifyPublicController::class, 'search']);
+});
+
+

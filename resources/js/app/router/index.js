@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import store from '../store/index';
 
 import Home from '../pages/Home.vue';
+import Search from '../pages/Search.vue';
 import Profile from '../pages/Profile.vue';
 import Login from '../pages/auth/Login.vue';
 import LoginCallback from '../pages/auth/LoginCallback.vue';
@@ -12,8 +13,18 @@ const routes = [
         path: '/',
         component: Home,
         meta: {
-            middleware: "guest",
+            middleware: "public",
             title: `Home`
+        }
+    },
+    {
+        name: 'search',
+        path: '/search',
+        props: true,
+        component: Search,
+        meta: {
+            middleware: "public",
+            title: `Search`
         }
     },
     {
@@ -39,7 +50,8 @@ const routes = [
         path: '/profile',
         component: Profile,
         meta: {
-            middleware: "auth"
+            middleware: "auth",
+            title: `Profile`
         }
     }
 ];
@@ -55,6 +67,8 @@ router.beforeEach((to, from, next) => {
         if (store.state.auth.authenticated) {
             next({ name: "profile" })
         }
+        next()
+    } else if (to.meta.middleware == "public") {
         next()
     } else {
         if (store.state.auth.authenticated) {

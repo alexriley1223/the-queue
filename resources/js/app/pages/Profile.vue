@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <base-layout>
         <div>
             <p>User Profile</p>
             <span>{{ user }}</span>
@@ -7,9 +7,10 @@
             <img :src="user['avatar']" alt="">
             <p @click="logout">Logout</p>
         </div>
-    </div>
+    </base-layout>
 </template>
 <script>
+import BaseLayout from "../layout/BaseLayout.vue";
 
 export default {
     
@@ -20,9 +21,13 @@ export default {
         }
     },
 
+    components: {
+            BaseLayout
+    },
+
     methods:{
         async logout(){
-            await axios.post('/api/logout').then(({ data })=>{
+            await axios.post('/api/auth/logout').then(({ data })=>{
                 this.$store.dispatch('auth/logout')
                 this.$router.push({ name:"login" });
             });

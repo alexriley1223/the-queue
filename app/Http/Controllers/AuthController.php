@@ -8,22 +8,15 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\SpotifyAccessToken;
 
+use App\Helpers\SpotifyAuth;
 use App\Helpers\Spotify;
 
 class AuthController extends Controller
 {
     public function login()
     {
-        $client = env('SPOTIFY_CLIENT_ID');
-        $redirect = url('/') . env('SPOTIFY_CALLBACK');
-
-        // Add to session to compare below
-        $state = 'test';
-        $scope = 'user-read-email%20user-read-private%20user-read-playback-state%20user-modify-playback-state';
-
-        $url = 'https://accounts.spotify.com/authorize?response_type=code&client_id=' . $client . '&scope=' . $scope . '&redirect_uri=' . $redirect . '&state=' . $state;
-
-        return $url;
+        $spotifyAuth = new SpotifyAuth;
+        return $spotifyAuth->generateAuthorizeUrl();
     }
 
     public function logout(Request $request)
@@ -43,9 +36,10 @@ class AuthController extends Controller
 
     public function callback(Request $request)
     {
+        $spotifyAuth = new SpotifyAuth;
 
         // Compare states eventually with sessions
-        $codeData = json_decode(Spotify::requestAccessToken($request->code), true);
+        $codeData = json_decode($spotifyAuth->requestAccessToken($request->code), true);
         $expiryDate = date('Y-m-d H:i:s', time() + (int)$codeData['expires_in']);
 
         // Get user data, make entries
@@ -57,7 +51,7 @@ class AuthController extends Controller
             [ 'avatar'  => $userData->images[0]->url ]
         );
 
-        $spotifyEntry = SpotifyAccessToken::updateOrCreate(
+        SpotifyAccessToken::updateOrCreate(
             [ 'user_id'         => $user->id ],
             [ 'access_token'    => $codeData['access_token'], 'refresh_token' => $codeData['refresh_token'], 'scope' => $codeData['scope'], 'last_used_at' => date('Y-m-d H:i:s'), 'expires_at' => $expiryDate ],
         );
