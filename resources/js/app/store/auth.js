@@ -8,10 +8,10 @@ export default {
         user: {}
     },
     getters:{
-        authenticated(state){
+        authenticated(state) {
             return state.authenticated
         },
-        user(state){
+        user(state) {
             return state.user
         }
     },
@@ -21,22 +21,17 @@ export default {
         },
         SET_USER (state, value) {
             state.user = value
-        }
+        },
     },
     actions:{
-        login({commit}){
-            return axios.get('/api/user').then(({data})=>{
-                commit('SET_USER',data)
-                commit('SET_AUTHENTICATED',true)
-                router.push({ name:'profile' })
-            }).catch(({response:{ data }})=>{
-                commit('SET_USER',{})
-                commit('SET_AUTHENTICATED',false)
-            })
+        login({ commit }, userData){
+            commit('SET_USER', userData)
+            commit('SET_AUTHENTICATED', true)
+            axios.defaults.headers.common.Authorization = `Bearer ${userData.token}`;
         },
-        logout({commit}){
-            commit('SET_USER',{})
-            commit('SET_AUTHENTICATED',false)
+        logout({ commit }){
+            commit('SET_USER', {})
+            commit('SET_AUTHENTICATED', false)
         }
     }
 }

@@ -4,6 +4,7 @@ import store from '../store/index';
 import Home from '../pages/Home.vue';
 import Profile from '../pages/Profile.vue';
 import Login from '../pages/auth/Login.vue';
+import LoginCallback from '../pages/auth/LoginCallback.vue';
 
 const routes = [
     {
@@ -25,6 +26,15 @@ const routes = [
         }
     },
     {
+        name: 'logincallback',
+        path: '/login/callback',
+        component: LoginCallback,
+        meta: {
+            middleware: "guest",
+            title: `Login Callback`
+        }
+    },
+    {
         name: 'profile',
         path: '/profile',
         component: Profile,
@@ -40,7 +50,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    document.title = to.meta.title
+    document.title = to.meta.title;
     if (to.meta.middleware == "guest") {
         if (store.state.auth.authenticated) {
             next({ name: "profile" })

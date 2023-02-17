@@ -20,8 +20,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/me', function(Request $request) {
         return auth()->user();
     });
+
+    Route::post('/logout', [ AuthController::class, 'logout']);
 });
 
 Route::post('/auth/login', [AuthController::class, 'login']);
 
-Route::get('/auth/callback', [AuthController::class, 'callback']);
+Route::post('/auth/callback', [AuthController::class, 'callback']);
