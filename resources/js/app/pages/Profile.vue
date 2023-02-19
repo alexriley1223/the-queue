@@ -1,11 +1,14 @@
 <template>
     <base-layout>
-        <div>
-            <p>User Profile</p>
-            <span>{{ user }}</span>
-            <p @click="testProfile">Click to Test API: <span>{{ apiStatus }}</span></p>
-            <img :src="user['avatar']" alt="">
-            <p @click="logout">Logout</p>
+        <div class="w-full h-full flex flex-col justify-center items-center">
+
+            <div class="text-white">
+                <img class="rounded-full w-60 h-60 object-cover mb-2 border border-white" :src="user['avatar']" :alt="user['name'] + ' Avatar'">
+
+                <p class="text-center text-xl mb-4">{{ user['name'] }} • {{ user['code'] }}</p>
+
+                <p class="text-center hover:cursor-pointer text-xs" @click="testProfile">Click to Test API: <span>{{ apiStatus }}</span></p>
+            </div>
         </div>
     </base-layout>
 </template>
@@ -16,7 +19,7 @@ export default {
     
     data(){
         return {
-            user: this.$store.state.auth.user,
+            user: this.$store.state.auth.user.user,
             apiStatus: 'N/A'
         }
     },
@@ -33,7 +36,7 @@ export default {
             });
         },
         async testProfile() {
-            return axios.get('/api/me').then(({data})=>{ this.apiStatus = 'Working!' }).catch(({response})=>{ that.apiStatus = 'Not Working!' });
+            return axios.get('/api/me').then(({ data })=>{ this.apiStatus = 'Working!' }).catch(({ response })=>{ this.apiStatus = 'Not Working!' });
         }
     }
 }

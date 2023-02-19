@@ -20,21 +20,20 @@ export default {
         async validateToken() {
             let queryCode = this.$route.query.code;
             let queryState = this.$route.query.state;
-            let that = this;
             
             await axios.get('/sanctum/csrf-cookie')
             await axios.post('/api/auth/callback', { code: queryCode, state: queryState }).then(({ data })=>{
                 try {
-                    that.signIn(data);
+                    this.signIn(data);
                 } catch (error) {
                     console.log(error);
                 }
                 
-                that.$router.push({ path: '/profile', replace: true });
+                this.$router.push({ path: '/profile', replace: true });
             }).catch(({response})=>{
-                // Show error messages, set error flag
-                console.log('Error');
+                // TODO: Set error flag so it's apparent to the user the login failed
                 console.log(response);
+                this.$router.push({ path: '/login', replace: true });
             });
         }
     },
