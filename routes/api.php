@@ -33,12 +33,28 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 });
 
 /* Public Auth Routes */
-Route::post('/auth/login', [AuthController::class, 'login']);
-Route::post('/auth/callback', [AuthController::class, 'callback']);
+Route::post('/auth/login', [ AuthController::class, 'login' ]);
+Route::post('/auth/callback', [ AuthController::class, 'callback' ]);
 
 /* Public Spotify Routes */
 Route::prefix('/spotify/public')->group(function () {
-    Route::post('/search', [SpotifyPublicController::class, 'search']);
+    Route::post('/search', [ SpotifyPublicController::class, 'search' ]);
+});
+
+Route::post('/code/verify', function(Request $request) {
+    // TODO: Validation
+    try {
+        $user = App\Models\User::where('code', $request->code)->firstOrFail();
+
+        return response()->json([
+            'code'      => $user->code,
+        ], 200);
+    } catch (Throwable $e) {
+        return response()->json([
+            'error'      => 'Valid code not found'
+        ], 400);
+    }
+    
 });
 
 

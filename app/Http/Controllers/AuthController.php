@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 use App\Models\User;
 use App\Models\SpotifyAccessToken;
@@ -40,17 +40,27 @@ class AuthController extends Controller
 
         // Compare states eventually with sessions
         $codeData = json_decode($spotifyAuth->requestAccessToken($request->code), true);
+
+        if(isset($codeData['error'])) {
+            return response()->json([
+                'success'   => false,
+                'data'     => $codeData['error_description']
+            ], 400);
+        }
         $expiryDate = date('Y-m-d H:i:s', time() + (int)$codeData['expires_in']);
 
         // Get user data, make entries
         $userData = json_decode(Spotify::getMe($codeData['access_token']));
-
+        
         $user = User::firstOrCreate(
-            [ 'name'    => $userData->display_name ],
-            [ 'email'   => $userData->email ],
-            [ 'avatar'  => $userData->images[0]->url ]
+            [ 'email' => $userData->email ],
+            [ 
+                'name' => $userData->display_name,
+                'avatar' => $userData->images[0]->url,
+                'code' => Str::lower(Str::random(8))  
+            ],
         );
-
+        
         SpotifyAccessToken::updateOrCreate(
             [ 'user_id'         => $user->id ],
             [ 'access_token'    => $codeData['access_token'], 'refresh_token' => $codeData['refresh_token'], 'scope' => $codeData['scope'], 'last_used_at' => date('Y-m-d H:i:s'), 'expires_at' => $expiryDate ],
