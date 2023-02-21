@@ -1,5 +1,5 @@
 <template>
-    <header>
+    <header class="absolute top-0 w-full z-10">
         <ul class="text-white flex justify-between px-4 mt-4 [&>li>a]:hover:cursor-pointer">
             <div class="space-x-4 flex">
                 <li><router-link to="/">Home</router-link></li>
@@ -10,7 +10,14 @@
             </div>
             
 
-            <p v-if="room" class="bg-gray-800 rounded-md px-4 py-1"><span class="text-xs" @click="removeCode">(X)</span> {{ room }}</p>
+            <p v-if="room" class="bg-white text-black rounded-md px-4 py-1 mr-2 flex items-center">
+                <span @click="removeCode" class="mr-2 hover:cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="bi bi-x-circle fill-black" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                    </svg>
+                </span> {{ room }}
+            </p>
         </ul>
     </header>
 </template>

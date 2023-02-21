@@ -5,6 +5,11 @@ import App from './app/App.vue';
 import router from './app/router/index';
 import store from './app/store/index';
 
+/* Vite */
+import.meta.glob([
+    '../static/**'
+  ]);
+
 const app = createApp({
     components: {
         App,

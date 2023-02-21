@@ -1,6 +1,22 @@
 <template>
-    <router-view />
+    <router-view v-slot="{ Component }">
+        <transition name="page-opacity" mode="out-in">
+            <component :is="Component" />
+        </transition>
+    </router-view>
 </template>
+
+<style>
+.page-opacity-enter-active,
+.page-opacity-leave-active {
+    transition: 500ms ease all;
+}
+
+.page-opacity-enter-from,
+.page-opacity-leave-to {
+    opacity: 0
+}
+</style>
 
 <script>
 export default {

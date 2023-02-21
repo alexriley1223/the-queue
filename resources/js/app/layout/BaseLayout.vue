@@ -1,10 +1,10 @@
 <template>
-    <div class="w-screen h-screen bg-black flex flex-col">
+    <div>
       <header-row></header-row>
-      <main class="flex-1">
+      <main>
         <slot></slot>
       </main>
-      <footer-row class="flex-shrink"></footer-row>
+      <footer-row></footer-row>
     </div>
 </template>
   

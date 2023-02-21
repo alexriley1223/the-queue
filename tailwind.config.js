@@ -6,7 +6,15 @@ module.exports = {
     "./resources/**/*.vue",
   ],
   theme: {
-    extend: {},
+    fontFamily: {
+      'sans': [ 'DM Sans', 'sans-serif' ],
+      'serif': [ 'DM Serif Display', 'serif' ]
+    },
+    extend: {
+      backgroundImage: {
+        'home-background': "url('../static/img/home.jpg')"
+      }
+    },
   },
   plugins: [],
 }

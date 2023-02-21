@@ -14,7 +14,7 @@ const routes = [
         component: Home,
         meta: {
             middleware: "public",
-            title: `Home`
+            title: `The Queue`
         }
     },
     {
