@@ -35,7 +35,7 @@ class QueueController extends Controller
             $spotifyClient->addToQueue();
 
             $queueTrack->update([ 'added_at' => now() ]);
-            // $queueTrack->delete(); // Soft Delete
+            $queueTrack->delete(); // Soft Delete
         } catch (\Throwable $e) {
             \Log::info($e);
             return response()->json([
