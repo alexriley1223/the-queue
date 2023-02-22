@@ -1,10 +1,10 @@
 <template>
     <div>
-      <header-row></header-row>
-      <main>
+      <header-row class="z-30"></header-row>
+      <main class="z-20">
         <slot></slot>
       </main>
-      <footer-row></footer-row>
+      <footer-row class="z-10"></footer-row>
     </div>
 </template>
   

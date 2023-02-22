@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\QueueController;
 use App\Http\Controllers\Spotify\SpotifyPublicController;
 
 /*
@@ -19,10 +20,20 @@ use App\Http\Controllers\Spotify\SpotifyPublicController;
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     
-    /* Private Auth Routes */
-    Route::get('/me', function(Request $request) {
+    Route::get('/user/me', function() {
         return auth()->user();
     });
+
+    Route::get('/test', function() {
+        $sp = new App\Helpers\SpotifyAuth;
+    
+        return $sp->getUserAccessToken();
+    });
+
+    Route::get('/user/queue', [ QueueController::class, 'get' ]);
+    Route::post('/user/queue/add', [ QueueController::class, 'add' ]);
+    Route::post('/user/queue/remove', [ QueueController::class, 'remove' ]);
+    
     Route::post('/auth/logout', [ AuthController::class, 'logout']);
 
     /* Private Spotify Routes */

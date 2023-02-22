@@ -1,6 +1,6 @@
 <template>
     <div>
-        <p @click="login">Login</p>
+        <p class="text-white hover:cursor-pointer" @click="login">Login</p>
     </div>
 </template>
 <script>

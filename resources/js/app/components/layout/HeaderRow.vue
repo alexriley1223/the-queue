@@ -1,12 +1,12 @@
 <template>
-    <header class="absolute top-0 w-full z-10">
+    <header class="absolute top-0 w-full">
         <ul class="text-white flex justify-between px-4 mt-4 [&>li>a]:hover:cursor-pointer">
             <div class="space-x-4 flex">
                 <li><router-link to="/">Home</router-link></li>
                 <li v-if="isAuthenticated"><router-link to="/profile">Profile</router-link></li>
-                <li v-if="isAuthenticated"><a @click="logout">Logout</a></li>
+                <li v-if="isAuthenticated"><a class="hover:cursor-pointer" @click="logout">Logout</a></li>
                 
-                <li v-if="!isAuthenticated"><router-link to="/login">Profile</router-link></li>
+                <li v-if="!isAuthenticated"><router-link to="/login">Login</router-link></li>
             </div>
             
 

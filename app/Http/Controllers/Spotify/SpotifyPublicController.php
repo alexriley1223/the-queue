@@ -13,7 +13,7 @@ class SpotifyPublicController extends Controller
         $params = array(
             'q'     => $request->q,
             'type'  => 'track',
-            'limit' => 10
+            'limit' => 6
         );
 
         $search = new \App\Helpers\SpotifyServer($params);

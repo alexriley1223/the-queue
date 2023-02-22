@@ -21,4 +21,11 @@ class QueuedTrack extends Model
         'image_thumb',
         'added_at'
     ];
+
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+        'added_at'
+    ];
 }

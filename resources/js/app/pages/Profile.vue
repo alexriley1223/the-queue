@@ -1,19 +1,23 @@
 <template>
     <base-layout>
-        <div class="w-full h-full flex flex-col justify-center items-center">
+        <template v-slot:default>
+            <div class="w-full pt-32">
 
-            <div class="text-white">
-                <img class="rounded-full w-60 h-60 object-cover mb-2 border border-white" :src="user['avatar']" :alt="user['name'] + ' Avatar'">
+                <section class="text-white mb-12">
 
-                <p class="text-center text-xl mb-4">{{ user['name'] }} • {{ user['code'] }}</p>
+                    <img class="rounded-full w-48 h-48 object-cover mx-auto border-2 border-white" :src="user['avatar']">
 
-                <p class="text-center hover:cursor-pointer text-xs" @click="testProfile">Click to Test API: <span>{{ apiStatus }}</span></p>
+                    <p class="text-center text-xl mb-4">{{ user['name'] }} • {{ user['code'] }}</p>
+                </section>
+
+                <queue></queue>
             </div>
-        </div>
+        </template>
     </base-layout>
 </template>
 <script>
 import BaseLayout from "../layout/BaseLayout.vue";
+import Queue from "../components/profile/Queue.vue";
 
 export default {
     
@@ -25,7 +29,8 @@ export default {
     },
 
     components: {
-            BaseLayout
+        BaseLayout,
+        Queue
     },
 
     methods:{
@@ -34,9 +39,6 @@ export default {
                 this.$store.dispatch('auth/logout')
                 this.$router.push({ name:"login" });
             });
-        },
-        async testProfile() {
-            return axios.get('/api/me').then(({ data })=>{ this.apiStatus = 'Working!' }).catch(({ response })=>{ this.apiStatus = 'Not Working!' });
         }
     }
 }
