@@ -26,6 +26,7 @@ class SpotifyClient {
         $header = array(
             'Content-Type: application/json',
             'Authorization: Bearer ' . $this->accessToken,
+            'Content-Length: 0'
         );
 
         $ch = curl_init();
