@@ -4,18 +4,18 @@
 
             <div class="w-full text-white">
 
-                <div class="flex flex-col justify-center mt-32 w-full">
+                <div class="flex flex-col justify-center pt-32 px-2 md:px-6 lg:px-20 w-full">
                     <section class="text-center mb-4">
                         <h1 class="font-serif text-4xl mb-4">Track Results</h1>
                         <p class="border w-32 mx-auto py-2 bg-white text-black select-none">{{ query }}</p>
                     </section>
 
-                    <TransitionGroup tag="div" :css="false" @before-enter="onBeforeEnter" @enter="onEnter" @leave="onLeave" class="grid grid-cols-3 gap-2">
+                    <TransitionGroup tag="div" :css="false" @before-enter="onBeforeEnter" @enter="onEnter" @leave="onLeave" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         <div @click="addTrack(track.id)" class="hover:cursor-pointer" v-for="track in tracks" :key="track.id">
-                            <img class="" :src="track.image" :alt="track.track + ' Image'">
+                            <img class="hover:saturate-0 transition-all mb-2 w-full object-cover" :src="track.image" :alt="track.track + ' Image'">
                             <div>
                                 <p>{{ track.track }}</p>
-                                <p><small>{{ track.artist }}</small></p>
+                                <p class="italic"><small>{{ track.artist }}</small></p>
                             </div>
                         </div>
                     </TransitionGroup>
@@ -59,7 +59,7 @@ export default {
         onEnter(el, done) {
             gsap.to(el, {
                 opacity: 1,
-                height: '575px',
+                height: '25%',
                 delay: el.dataset.index * 0.25,
                 onComplete: done
             })
@@ -71,6 +71,7 @@ export default {
 
             await axios.post('/add', { code: this.room, track: { name: track.track, uri: track.id, artist: track.artist, image: track.image, image_thumb: track.image_thumb }}, { headers: { 'X-CSRF-TOKEN': this.csrf }}).then(({ data })=>{
                 console.log(data);
+                this.$router.push({ name:"home" });
             }).catch(({response})=>{
                 console.log(response);
             });

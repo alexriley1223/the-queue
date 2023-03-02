@@ -5,7 +5,7 @@
 
             <label for="code" class="sr-only">Room Code</label>
 
-            <div class="relative w-[25%] mx-auto">
+            <div class="relative w-[95%] md:w-[50%] lg:w-[25%] mx-auto">
                 <input v-model="code" type="text" name="code" class="text-white w-full bg-transparent border-2 px-4 py-2 placeholder:text-white border-white rounded-sm" placeholder="Enter room code">
                 <button type="submit" class="absolute right-0 bottom-0 h-full w-12">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" class="bi bi-person-up fill-white mx-auto" viewBox="0 0 16 16">

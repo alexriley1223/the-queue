@@ -5,7 +5,7 @@
 
             <label for="search" class="sr-only">Track Search</label>
 
-            <div class="relative w-[50%] mx-auto">
+            <div class="relative w-[95%] md:w-[75%] lg:w-[50%] mx-auto">
                 <input v-model="search" type="text" name="search" class="text-white w-full bg-transparent border-2 px-4 py-2 placeholder:text-white border-white rounded-sm" placeholder="Search a track">
                 <button type="submit" class="absolute right-0 bottom-0 h-full w-12">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" class="bi bi-search fill-white mx-auto" viewBox="0 0 16 16">

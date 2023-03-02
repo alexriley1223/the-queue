@@ -1,6 +1,11 @@
 <template>
-    <div>
-
+    <div class="flex items-center justify-center h-screen">
+        <div
+            class="inline-block h-64 w-64 animate-spin rounded-full border-4 text-white border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+            role="status">
+            <span class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap text-white !border-0 !p-0 ![clip:rect(0,0,0,0)]"></span>
+        </div>
+        <p class="text-white absolute text-xl font-bold left-1/2 translate-x-[-50%]">Authenticating</p>
     </div>
 </template>
 <script>

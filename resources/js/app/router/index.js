@@ -4,7 +4,6 @@ import store from '../store/index';
 import Home from '../pages/Home.vue';
 import Search from '../pages/Search.vue';
 import Profile from '../pages/Profile.vue';
-import Login from '../pages/auth/Login.vue';
 import LoginCallback from '../pages/auth/LoginCallback.vue';
 
 const routes = [
@@ -25,15 +24,6 @@ const routes = [
         meta: {
             middleware: "public",
             title: `Search`
-        }
-    },
-    {
-        name: 'login',
-        path: '/login',
-        component: Login,
-        meta: {
-            middleware: "guest",
-            title: `Login`
         }
     },
     {
