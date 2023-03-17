@@ -5,7 +5,7 @@
 
                 <section class="text-white mb-12">
 
-                    <img class="rounded-full w-48 h-48 object-cover mx-auto border-2 border-white" :src="user['avatar']">
+                    <img class="rounded-full w-48 h-48 object-cover mx-auto border-2 border-white mb-4" :src="user['avatar']">
 
                     <p class="text-center text-xl mb-4">{{ user['name'] }} • {{ user['code'] }}</p>
                 </section>
