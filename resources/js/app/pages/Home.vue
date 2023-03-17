@@ -4,7 +4,7 @@
             
             <div class="w-screen h-screen bg-home-background bg-cover bg-no-repeat bg-center">
                 <div class="flex flex-col justify-center items-center h-[75%] w-full">
-                    <h1 class="uppercase text-4xl md:text-6xl lg:text-8xl mb-14 pt-4 pb-8 border-b-2 border-t-2 font-bold font-serif tracking-wider text-white select-none">The Queue</h1>
+                    <h1 class="uppercase text-4xl md:text-6xl lg:text-8xl mb-14 pt-4 pb-5 md:pb-6 lg:pb-8 border-b-2 border-t-2 font-bold font-serif tracking-wider text-white select-none">The Queue</h1>
 
                     <Transition>
                         <room-code-panel v-if="step == 'roomcode'" @handleStepChange="step = 'search'"></room-code-panel>
