@@ -24,11 +24,13 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         return auth()->user();
     });
 
-    Route::get('/test', function() {
-        $sp = new App\Helpers\SpotifyAuth;
-    
-        return $sp->getUserAccessToken();
-    });
+    /*
+        Route::get('/test', function() {
+            $sp = new App\Helpers\SpotifyAuth;
+        
+            return $sp->getUserAccessToken();
+        });
+    */
 
     Route::get('/user/queue', [ QueueController::class, 'get' ]);
     Route::post('/user/queue/add', [ QueueController::class, 'add' ]);
@@ -36,10 +38,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     
     Route::post('/auth/logout', [ AuthController::class, 'logout']);
 
-    /* Private Spotify Routes */
-    Route::prefix('/spotify/private')->group(function () {
+    /* Private Spotify Routes 
+        Route::prefix('/spotify/private')->group(function () {
 
-    });
+        });
+    */
 
 });
 
