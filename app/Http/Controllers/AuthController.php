@@ -56,10 +56,16 @@ class AuthController extends Controller
             [ 'email' => $userData->email ],
             [ 
                 'name' => $userData->display_name,
-                'avatar' => $userData->images[0]->url,
+                'avatar' => $userData->images[1]->url,
                 'code' => Str::lower(Str::random(8))  
             ],
         );
+
+        /* Update avatar if a re-visiting user */
+        if(!$user->wasRecentlyCreated) {
+            $user->avatar = $userData->images[1]->url;
+            $user->save();
+        }
         
         SpotifyAccessToken::updateOrCreate(
             [ 'user_id'         => $user->id ],
